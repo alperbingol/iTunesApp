@@ -12,6 +12,16 @@ interface SearchResultsProps {
   sortOrder: SortOrder; 
 }
 
+// Extract this as a reusable component
+export function ResultsGrid({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {children}
+    </div>
+  );
+}
+
+
 export default function SearchResults({ 
   results,
   sortOrder 
@@ -48,7 +58,8 @@ export default function SearchResults({
           Found {results.length} results
         </p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        
+        <ResultsGrid>
           {displayResults.map((result) => (
             <SearchResultCard 
               key={result.id}
@@ -56,7 +67,7 @@ export default function SearchResults({
               onArtistClick={handleArtistClick}
             />
           ))}
-        </div>
+        </ResultsGrid>
       </div>
 
       <SimilarArtistsModal 
